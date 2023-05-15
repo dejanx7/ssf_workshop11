@@ -23,11 +23,10 @@ public class Workshop11Application {
 		logger.info("main method started....");
 		// Initialize spring app
 
-		SpringApplication app = SpringApplication(Workshop11Application.class);
+		SpringApplication app = new SpringApplication(Workshop11Application.class);
 
 		// read args array and check for "port" parameter
 		DefaultApplicationArguments appArgs = new DefaultApplicationArguments(args);
-
 
 		List opsValue = appArgs.getOptionValues("port");
 
@@ -41,29 +40,25 @@ public class Workshop11Application {
 
 				portNumber = DEFAULT_PORT;
 
-			} else {
-
-				// pass port number from CLI
-				portNumber = opsValue.get(0).toString();
 			}
+		} else {
 
-			if (portNumber != null) {
-
-				// set port number in the spring boot config
-				app.setDefaultProperties(Collections.singletonMap("server.port", portNumber));
-			}
-
-			logger.info("Port number is : " + portNumber);
-
-			app.run(args);
-
+			// pass port number from CLI
+			portNumber = opsValue.get(0).toString();
 		}
 
-		SpringApplication.run(Workshop11Application.class, args);
+		if (portNumber != null) {
+
+			// set port number in the spring boot config
+			app.setDefaultProperties(Collections.singletonMap("server.port", portNumber));
+		}
+
+		logger.info("Port number is : " + portNumber);
+
+		app.run(args);
+
+		
 	}
 
-	private static SpringApplication SpringApplication(Class<Workshop11Application> class1) {
-		return null;
-	}
-
+	
 }
